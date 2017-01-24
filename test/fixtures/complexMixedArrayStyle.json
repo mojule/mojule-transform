@@ -1,0 +1,41 @@
+{
+  "description": "transforms complex mixed array of styles",
+  "model": [
+    {
+      "src": "http://example.com/"
+    },
+    {
+      "text": "Hello"
+    }
+  ],
+  "transform": {
+    "src": {
+      "$if": [
+        {
+          "$value": "src"
+        },
+        {
+          "attr": [
+            "href",
+            {
+              "$value": "src"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "expect": [
+    {
+      "src": {
+        "attr": [
+          "href",
+          "http://example.com/"
+        ]
+      }
+    },
+    {
+      "text": "Hello"
+    }
+  ]
+}

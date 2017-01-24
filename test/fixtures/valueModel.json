@@ -1,0 +1,10 @@
+{
+  "description": "model is not array or object",
+  "model": "Hello",
+  "transform": {
+    "a": {
+      "$value": "a"
+    }
+  },
+  "expect": "Hello"
+}

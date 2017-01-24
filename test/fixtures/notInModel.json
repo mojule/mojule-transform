@@ -1,0 +1,14 @@
+{
+  "description": "skips $value if not in array",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "c": {
+      "$value": "b"
+    }
+  },
+  "expect": {
+    "a": "Hello"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "description": "transforms mixed arrays of models",
+  "model": [
+    {
+      "a": "Hello"
+    },
+    {
+      "b": "World"
+    }
+  ],
+  "transform": {
+    "a": "$delete",
+    "c": {
+      "$value": "a"
+    }
+  },
+  "expect": [
+    {
+      "c": "Hello"
+    },
+    {
+      "b": "World"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "description": "copies property to array",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "b": [
+      {
+        "$value": "a"
+      }
+    ]
+  },
+  "expect": {
+    "a": "Hello",
+    "b": [ "Hello" ]
+  }
+}

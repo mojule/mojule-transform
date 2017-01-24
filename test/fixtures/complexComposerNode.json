@@ -1,0 +1,196 @@
+{
+  "description": "complex composer node",
+  "model": [
+    {
+      "isCollapsed": true,
+      "isEmpty": true,
+      "id": 1,
+      "treeType": "tree1",
+      "nodeType": "node1",
+      "depth": 0,
+      "isChildrenCollapsed": true
+    },
+    {
+      "isCollapsed": false,
+      "isEmpty": false,
+      "id": 2,
+      "treeType": "tree2",
+      "nodeType": "node2",
+      "depth": 3,
+      "isChildrenCollapsed": false
+    }
+  ],
+  "transform": {
+    "nodeTag": [
+      {
+        "$if": [
+          {
+            "$value": "isCollapsed"
+          },
+          {
+            "addClass": "composer-node--collapsed"
+          }
+        ]
+      },
+      {
+        "$if": [
+          {
+            "$value": "isEmpty"
+          },
+          {
+            "addClass": "composer-node--empty"
+          }
+        ]
+      },
+      {
+        "attr": [
+          "id",
+          {
+            "$value": "id"
+          }
+        ]
+      },
+      {
+        "attr": [
+          "data-treeType",
+          {
+            "$value": "treeType"
+          }
+        ]
+      },
+      {
+        "attr": [
+          "data-nodeType",
+          {
+            "$value": "nodeType"
+          }
+        ]
+      },
+      {
+        "attr": [
+          "data-depth",
+          {
+            "$value": "depth"
+          }
+        ]
+      }
+    ],
+    "childWrapperTag": [
+      {
+        "$if": [
+          {
+            "$value": "isChildrenCollapsed"
+          },
+          {
+            "addClass": "composer-node__children--collapsed"
+          }
+        ]
+      },
+      {
+        "attr": [
+          "id",
+          {
+            "$value": "id"
+          }
+        ]
+      }
+    ]
+  },
+  "expect": [
+    {
+      "isCollapsed": true,
+      "isEmpty": true,
+      "id": 1,
+      "treeType": "tree1",
+      "nodeType": "node1",
+      "depth": 0,
+      "isChildrenCollapsed": true,
+      "nodeTag": [
+        {
+          "addClass": "composer-node--collapsed"
+        },
+        {
+          "addClass": "composer-node--empty"
+        },
+        {
+          "attr": [
+            "id",
+            1
+          ]
+        },
+        {
+          "attr": [
+            "data-treeType",
+            "tree1"
+          ]
+        },
+        {
+          "attr": [
+            "data-nodeType",
+            "node1"
+          ]
+        },
+        {
+          "attr": [
+            "data-depth",
+            0
+          ]
+        }
+      ],
+      "childWrapperTag": [
+        {
+          "addClass": "composer-node__children--collapsed"
+        },
+        {
+          "attr": [
+            "id",
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "isCollapsed": false,
+      "isEmpty": false,
+      "id": 2,
+      "treeType": "tree2",
+      "nodeType": "node2",
+      "depth": 3,
+      "isChildrenCollapsed": false,
+      "nodeTag": [
+        {
+          "attr": [
+            "id",
+            2
+          ]
+        },
+        {
+          "attr": [
+            "data-treeType",
+            "tree2"
+          ]
+        },
+        {
+          "attr": [
+            "data-nodeType",
+            "node2"
+          ]
+        },
+        {
+          "attr": [
+            "data-depth",
+            3
+          ]
+        }
+      ],
+      "childWrapperTag": [
+        {
+          "attr": [
+            "id",
+            2
+          ]
+        }
+      ]
+    }
+  ]
+}

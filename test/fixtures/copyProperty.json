@@ -1,0 +1,15 @@
+{
+  "description": "copies property",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "b": {
+      "$value": "a"
+    }
+  },
+  "expect": {
+    "a": "Hello",
+    "b": "Hello"
+  }
+}

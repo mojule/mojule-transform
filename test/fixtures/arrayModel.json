@@ -1,0 +1,26 @@
+{
+  "description": "model is array",
+  "model": [
+    {
+      "a": "Hello"
+    },
+    {
+      "a": "World"
+    }
+  ],
+  "transform": {
+    "b": {
+      "$value": "a"
+    }
+  },
+  "expect": [
+    {
+      "a": "Hello",
+      "b": "Hello"
+    },
+    {
+      "a": "World",
+      "b": "World"
+    }
+  ]
+}

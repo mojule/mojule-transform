@@ -1,0 +1,10 @@
+{
+  "description": "deletes property",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "a": "$delete"
+  },
+  "expect": {}
+}

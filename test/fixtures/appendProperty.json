@@ -1,0 +1,13 @@
+{
+  "description": "appends property",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "b": "World"
+  },
+  "expect": {
+    "a": "Hello",
+    "b": "World"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "description": "renames property",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "a": "$delete",
+    "b": {
+      "$value": "a"
+    }
+  },
+  "expect": {
+    "b": "Hello"
+  }
+}

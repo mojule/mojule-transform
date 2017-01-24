@@ -1,0 +1,19 @@
+{
+  "description": "copies nested property",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "b": {
+      "c": {
+        "$value": "a"
+      }
+    }
+  },
+  "expect": {
+    "a": "Hello",
+    "b": {
+      "c": "Hello"
+    }
+  }
+}

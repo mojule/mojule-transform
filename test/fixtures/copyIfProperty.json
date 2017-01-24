@@ -1,0 +1,24 @@
+{
+  "description": "copies property according to if",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "b": {
+      "$if": [
+        { "$value": "a" },
+        true
+      ]
+    },
+    "c": {
+      "$if": [
+        { "$value": "d" },
+        true
+      ]
+    }
+  },
+  "expect": {
+    "a": "Hello",
+    "b": true
+  }
+}
