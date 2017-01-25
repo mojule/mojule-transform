@@ -7,6 +7,7 @@ const transforms = {
   values: data => {
     let { model, transform } = data
 
+
     const transformTree = toTree( transform )
 
     const valuePropertyNodes = transformTree.findAll( n =>
@@ -80,7 +81,7 @@ const transforms = {
     return { model, transform }
   },
   deletes: data => {
-    let { model, transform } = data
+    const { model, transform } = data
 
     const transformKeys = Object.keys( transform )
 
@@ -94,7 +95,7 @@ const transforms = {
     return { model, transform }
   },
   substitutes: data => {
-    let { model, transform } = data
+    const { model, transform } = data
 
     const transformKeys = Object.keys( transform )
 
