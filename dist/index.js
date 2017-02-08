@@ -32,7 +32,11 @@ var transforms = {
 
       var propertyName = objectNode.value().propertyName;
 
-      objectNodeParent.setProperty(newValueNode, propertyName);
+      if (objectNodeParent.nodeType() === 'object') {
+        objectNodeParent.setProperty(newValueNode, propertyName);
+      } else {
+        objectNodeParent.replaceChild(newValueNode, objectNode);
+      }
     });
 
     transform = transformTree.toJson();
@@ -69,8 +73,11 @@ var transforms = {
           ifValueNode.value(newValue);
         }
 
-        objectNodeParent.setProperty(ifValueNode, propertyName);
-        //objectNodeParent.insertBefore( ifValueNode, objectNode )
+        if (objectNodeParent.nodeType() === 'object') {
+          objectNodeParent.setProperty(ifValueNode, propertyName);
+        } else {
+          objectNodeParent.insertBefore(ifValueNode, objectNode);
+        }
       }
 
       objectNode.remove();
