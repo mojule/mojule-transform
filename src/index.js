@@ -1,13 +1,13 @@
 'use strict'
 
 const { clone } = require( 'mojule-utils' )
-const { toTree, toJson } = require( '1tree-json' )
+const Tree = require( '1tree-json' )
 
 const transforms = {
   values: data => {
     let { model, transform } = data
 
-    const transformTree = toTree( transform )
+    const transformTree = Tree( transform )
 
     const valuePropertyNodes = transformTree.findAll( n =>
       n.value().propertyName === '$value'
@@ -23,28 +23,26 @@ const transforms = {
       const sourcePropertyName = value.nodeValue
 
       const newValueNode = sourcePropertyName in model ?
-        toTree( model[ sourcePropertyName ] ) :
-        toTree( '$delete' )
+        Tree( model[ sourcePropertyName ] ) :
+        Tree( '$delete' )
 
       const propertyName = objectNode.value().propertyName
 
-      if( propertyName ) {
-        const newValue = newValueNode.value()
-        newValue.propertyName = propertyName
-        newValueNode.value( newValue )
+      if( objectNodeParent.nodeType() === 'object' ){
+        objectNodeParent.setProperty( newValueNode, propertyName )
+      } else {
+        objectNodeParent.replaceChild( newValueNode, objectNode )
       }
-
-      objectNodeParent.replaceChild( newValueNode, objectNode )
     })
 
-    transform = toJson( transformTree )
+    transform = transformTree.toJson()
 
     return { model, transform }
   },
   ifs: data => {
     let { model, transform } = data
 
-    const transformTree = toTree( transform )
+    const transformTree = Tree( transform )
 
     const ifPropertyNodes = transformTree.findAll( n =>
       n.value().propertyName === '$if'
@@ -69,13 +67,17 @@ const transforms = {
           ifValueNode.value( newValue )
         }
 
-        objectNodeParent.insertBefore( ifValueNode, objectNode )
+        if( objectNodeParent.nodeType() === 'object' ){
+          objectNodeParent.setProperty( ifValueNode, propertyName )
+        } else {
+          objectNodeParent.insertBefore( ifValueNode, objectNode )
+        }
       }
 
       objectNode.remove()
     })
 
-    transform = toJson( transformTree )
+    transform = transformTree.toJson()
 
     return { model, transform }
   },

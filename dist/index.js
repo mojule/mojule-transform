@@ -5,9 +5,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var _require = require('mojule-utils'),
     clone = _require.clone;
 
-var _require2 = require('1tree-json'),
-    toTree = _require2.toTree,
-    toJson = _require2.toJson;
+var Tree = require('1tree-json');
 
 var transforms = {
   values: function values(data) {
@@ -15,7 +13,7 @@ var transforms = {
         transform = data.transform;
 
 
-    var transformTree = toTree(transform);
+    var transformTree = Tree(transform);
 
     var valuePropertyNodes = transformTree.findAll(function (n) {
       return n.value().propertyName === '$value';
@@ -30,20 +28,14 @@ var transforms = {
       var value = propertyNode.value();
       var sourcePropertyName = value.nodeValue;
 
-      var newValueNode = sourcePropertyName in model ? toTree(model[sourcePropertyName]) : toTree('$delete');
+      var newValueNode = sourcePropertyName in model ? Tree(model[sourcePropertyName]) : Tree('$delete');
 
       var propertyName = objectNode.value().propertyName;
 
-      if (propertyName) {
-        var newValue = newValueNode.value();
-        newValue.propertyName = propertyName;
-        newValueNode.value(newValue);
-      }
-
-      objectNodeParent.replaceChild(newValueNode, objectNode);
+      objectNodeParent.setProperty(newValueNode, propertyName);
     });
 
-    transform = toJson(transformTree);
+    transform = transformTree.toJson();
 
     return { model: model, transform: transform };
   },
@@ -52,7 +44,7 @@ var transforms = {
         transform = data.transform;
 
 
-    var transformTree = toTree(transform);
+    var transformTree = Tree(transform);
 
     var ifPropertyNodes = transformTree.findAll(function (n) {
       return n.value().propertyName === '$if';
@@ -77,13 +69,14 @@ var transforms = {
           ifValueNode.value(newValue);
         }
 
-        objectNodeParent.insertBefore(ifValueNode, objectNode);
+        objectNodeParent.setProperty(ifValueNode, propertyName);
+        //objectNodeParent.insertBefore( ifValueNode, objectNode )
       }
 
       objectNode.remove();
     });
 
-    transform = toJson(transformTree);
+    transform = transformTree.toJson();
 
     return { model: model, transform: transform };
   },

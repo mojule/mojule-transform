@@ -1,7 +1,7 @@
 "use strict"
 
 const assert = require( 'assert' )
-const mapper = require( '../dist' )
+const mapper = require( '../src' )
 
 const tests = [
   'appendProperty', 'copyProperty', 'deleteProperty', 'renameProperty',

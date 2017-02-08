@@ -1,12 +1,18 @@
 {
   "name": "mojule-transform",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Declarative object transformation",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
-  "keywords": [ "mapper", "object", "transformation", "transform", "declarative" ],
+  "keywords": [
+    "mapper",
+    "object",
+    "transformation",
+    "transform",
+    "declarative"
+  ],
   "author": "Nik Coughlin <nrkn.com@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -24,7 +30,7 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "1tree-json": "^0.1.5",
+    "1tree-json": "^0.2.2",
     "mojule-utils": "^0.1.2"
   }
 }
