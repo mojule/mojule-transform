@@ -1,0 +1,15 @@
+{
+  "description": "treats $value as an array",
+  "model": {
+    "a": "Hello"
+  },
+  "transform": {
+    "b": [
+      "$value", "a"
+    ]
+  },
+  "expect": {
+    "a": "Hello",
+    "b": "Hello"
+  }
+}

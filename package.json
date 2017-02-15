@@ -4,7 +4,8 @@
   "description": "Declarative object transformation",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "gulp"
   },
   "keywords": [
     "mapper",

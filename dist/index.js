@@ -8,6 +8,55 @@ var _require = require('mojule-utils'),
 var Tree = require('1tree-json');
 
 var transforms = {
+  valueArrays: function valueArrays(data) {
+    var model = data.model,
+        transform = data.transform;
+
+
+    var transformTree = Tree(transform);
+
+    var valueArrayNodes = transformTree.findAll(function (n) {
+      var parent = n.getParent();
+
+      if (!parent) return false;
+
+      if (parent.nodeType() !== 'array') return false;
+
+      if (n.index() !== 0) return false;
+
+      return n.value().nodeValue === '$value';
+    });
+
+    if (valueArrayNodes.length === 0) return data;
+
+    valueArrayNodes.forEach(function (arrayChildNode) {
+      var arrayNode = arrayChildNode.getParent();
+      var arrayNodeParent = arrayNode.getParent();
+
+      var valueNode = arrayNode.childAt(1);
+
+      if (!valueNode) throw new Error('$value array must contain two items');
+
+      if (valueNode.nodeType() !== 'string') throw new Error('Second element in $value array should be a string');
+
+      var value = valueNode.value();
+      var sourcePropertyName = value.nodeValue;
+
+      var newValueNode = sourcePropertyName in model ? Tree(model[sourcePropertyName]) : Tree('$delete');
+
+      var propertyName = arrayNode.value().propertyName;
+
+      if (arrayNodeParent.nodeType() === 'object') {
+        arrayNodeParent.setProperty(newValueNode, propertyName);
+      } else {
+        arrayNodeParent.replaceChild(newValueNode, arrayNode);
+      }
+    });
+
+    transform = transformTree.toJson();
+
+    return { model: model, transform: transform };
+  },
   values: function values(data) {
     var model = data.model,
         transform = data.transform;

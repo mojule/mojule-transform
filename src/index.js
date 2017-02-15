@@ -4,6 +4,57 @@ const { clone } = require( 'mojule-utils' )
 const Tree = require( '1tree-json' )
 
 const transforms = {
+  valueArrays: data => {
+    let { model, transform } = data
+
+    const transformTree = Tree( transform )
+
+    const valueArrayNodes = transformTree.findAll( n =>{
+      const parent = n.getParent()
+
+      if( !parent ) return false
+
+      if( parent.nodeType() !== 'array' ) return false
+
+      if( n.index() !== 0 ) return false
+
+      return n.value().nodeValue === '$value'
+    })
+
+    if( valueArrayNodes.length === 0 ) return data
+
+    valueArrayNodes.forEach( arrayChildNode => {
+      const arrayNode = arrayChildNode.getParent()
+      const arrayNodeParent = arrayNode.getParent()
+
+      const valueNode = arrayNode.childAt( 1 )
+
+      if( !valueNode )
+        throw new Error( '$value array must contain two items' )
+
+      if( valueNode.nodeType() !== 'string' )
+        throw new Error( 'Second element in $value array should be a string' )
+
+      const value = valueNode.value()
+      const sourcePropertyName = value.nodeValue
+
+      const newValueNode = sourcePropertyName in model ?
+        Tree( model[ sourcePropertyName ] ) :
+        Tree( '$delete' )
+
+      const propertyName = arrayNode.value().propertyName
+
+      if( arrayNodeParent.nodeType() === 'object' ){
+        arrayNodeParent.setProperty( newValueNode, propertyName )
+      } else {
+        arrayNodeParent.replaceChild( newValueNode, arrayNode )
+      }
+    })
+
+    transform = transformTree.toJson()
+
+    return { model, transform }
+  },
   values: data => {
     let { model, transform } = data
 
