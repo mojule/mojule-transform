@@ -1,0 +1,13 @@
+{
+  "description": "sets value in array",
+  "model": {
+    "a": "world"
+  },
+  "transform": {
+    "b": [ "hello", { "$value": "a" } ]
+  },
+  "expect": {
+    "a": "world",
+    "b": [ "hello", "world" ]
+  }
+}

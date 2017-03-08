@@ -7,7 +7,7 @@ const tests = [
   'appendProperty', 'copyProperty', 'deleteProperty', 'renameProperty',
   'nestedCopy', 'arrayCopy', 'notInModel', 'copyIfProperty', 'valueModel',
   'arrayModel', 'mixelArrayModel', 'complexComposerNode',
-  'complexMixedArrayStyle', 'valueAsArray'
+  'complexMixedArrayStyle', 'valueAsArray', 'valueInArray'
 ]
 
 describe( 'transform mapper', () => {
