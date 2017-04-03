@@ -1,6 +1,13 @@
 # transform
 
-Declarative object tranformation
+Declarative object transformation
+
+Useful for when you want to write simple models, but something in your code
+requires more complex models. Particularly good for turning a minimal amount of
+data into something that has more boiler plate. One use case we have is turning
+simple data models into view models. Great when you have to write lots of models
+by hand and don't want to write them out in full when a tool can do that for
+you.
 
 ## Usage
 
