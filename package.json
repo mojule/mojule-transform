@@ -1,10 +1,11 @@
 {
-  "name": "mojule-transform",
-  "version": "0.1.8",
+  "name": "@mojule/transform",
+  "version": "0.2.0",
   "description": "Declarative object transformation",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha",
     "build": "gulp"
   },
   "keywords": [
@@ -18,20 +19,21 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mojule/mojule-transform.git"
+    "url": "https://github.com/mojule/transform.git"
   },
   "bugs": {
-    "url": "https://github.com/mojule/mojule-transform/issues"
+    "url": "https://github.com/mojule/transform/issues"
   },
-  "homepage": "https://github.com/mojule/mojule-transform#readme",
+  "homepage": "https://github.com/mojule/transform#readme",
   "devDependencies": {
     "babel-preset-es2015": "^6.18.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "1tree-json": "^0.2.6",
-    "mojule-utils": "^0.1.8"
+    "@mojule/json-tree": "^0.3.2",
+    "@mojule/utils": "^0.1.9"
   }
 }

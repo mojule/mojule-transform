@@ -1,13 +1,13 @@
 'use strict'
 
-const { clone } = require( 'mojule-utils' )
-const Tree = require( '1tree-json' )
+const { clone } = require( '@mojule/utils' )
+const JsonTree = require( '@mojule/json-tree' )
 
 const transforms = {
   valueArrays: data => {
     let { model, transform } = data
 
-    const transformTree = Tree( transform )
+    const transformTree = JsonTree( transform )
 
     const valueArrayNodes = transformTree.findAll( n =>{
       const parent = n.getParent()
@@ -39,13 +39,13 @@ const transforms = {
       const sourcePropertyName = value.nodeValue
 
       const newValueNode = sourcePropertyName in model ?
-        Tree( model[ sourcePropertyName ] ) :
-        Tree( '$delete' )
+        JsonTree( model[ sourcePropertyName ] ) :
+        JsonTree( '$delete' )
 
       const propertyName = arrayNode.value().propertyName
 
       if( arrayNodeParent.nodeType() === 'object' ){
-        arrayNodeParent.setProperty( newValueNode, propertyName )
+        arrayNodeParent.setProperty( propertyName, newValueNode )
       } else {
         arrayNodeParent.replaceChild( newValueNode, arrayNode )
       }
@@ -58,7 +58,7 @@ const transforms = {
   values: data => {
     let { model, transform } = data
 
-    const transformTree = Tree( transform )
+    const transformTree = JsonTree( transform )
 
     const valuePropertyNodes = transformTree.findAll( n =>
       n.value().propertyName === '$value'
@@ -74,13 +74,13 @@ const transforms = {
       const sourcePropertyName = value.nodeValue
 
       const newValueNode = sourcePropertyName in model ?
-        Tree( model[ sourcePropertyName ] ) :
-        Tree( '$delete' )
+        JsonTree( model[ sourcePropertyName ] ) :
+        JsonTree( '$delete' )
 
       const propertyName = objectNode.value().propertyName
 
       if( objectNodeParent.nodeType() === 'object' ){
-        objectNodeParent.setProperty( newValueNode, propertyName )
+        objectNodeParent.setProperty( propertyName, newValueNode  )
       } else {
         objectNodeParent.replaceChild( newValueNode, objectNode )
       }
@@ -93,7 +93,7 @@ const transforms = {
   ifs: data => {
     let { model, transform } = data
 
-    const transformTree = Tree( transform )
+    const transformTree = JsonTree( transform )
 
     const ifPropertyNodes = transformTree.findAll( n =>
       n.value().propertyName === '$if'
@@ -119,13 +119,14 @@ const transforms = {
         }
 
         if( objectNodeParent.nodeType() === 'object' ){
-          objectNodeParent.setProperty( ifValueNode, propertyName )
+          objectNodeParent.setProperty( propertyName, ifValueNode )
         } else {
           objectNodeParent.insertBefore( ifValueNode, objectNode )
         }
       }
 
-      objectNode.remove()
+      if( objectNode !== objectNode.getRoot() )
+        objectNode.remove()
     })
 
     transform = transformTree.toJson()

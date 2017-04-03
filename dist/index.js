@@ -2,10 +2,10 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _require = require('mojule-utils'),
+var _require = require('@mojule/utils'),
     clone = _require.clone;
 
-var Tree = require('1tree-json');
+var JsonTree = require('@mojule/json-tree');
 
 var transforms = {
   valueArrays: function valueArrays(data) {
@@ -13,7 +13,7 @@ var transforms = {
         transform = data.transform;
 
 
-    var transformTree = Tree(transform);
+    var transformTree = JsonTree(transform);
 
     var valueArrayNodes = transformTree.findAll(function (n) {
       var parent = n.getParent();
@@ -42,12 +42,12 @@ var transforms = {
       var value = valueNode.value();
       var sourcePropertyName = value.nodeValue;
 
-      var newValueNode = sourcePropertyName in model ? Tree(model[sourcePropertyName]) : Tree('$delete');
+      var newValueNode = sourcePropertyName in model ? JsonTree(model[sourcePropertyName]) : JsonTree('$delete');
 
       var propertyName = arrayNode.value().propertyName;
 
       if (arrayNodeParent.nodeType() === 'object') {
-        arrayNodeParent.setProperty(newValueNode, propertyName);
+        arrayNodeParent.setProperty(propertyName, newValueNode);
       } else {
         arrayNodeParent.replaceChild(newValueNode, arrayNode);
       }
@@ -62,7 +62,7 @@ var transforms = {
         transform = data.transform;
 
 
-    var transformTree = Tree(transform);
+    var transformTree = JsonTree(transform);
 
     var valuePropertyNodes = transformTree.findAll(function (n) {
       return n.value().propertyName === '$value';
@@ -77,12 +77,12 @@ var transforms = {
       var value = propertyNode.value();
       var sourcePropertyName = value.nodeValue;
 
-      var newValueNode = sourcePropertyName in model ? Tree(model[sourcePropertyName]) : Tree('$delete');
+      var newValueNode = sourcePropertyName in model ? JsonTree(model[sourcePropertyName]) : JsonTree('$delete');
 
       var propertyName = objectNode.value().propertyName;
 
       if (objectNodeParent.nodeType() === 'object') {
-        objectNodeParent.setProperty(newValueNode, propertyName);
+        objectNodeParent.setProperty(propertyName, newValueNode);
       } else {
         objectNodeParent.replaceChild(newValueNode, objectNode);
       }
@@ -97,7 +97,7 @@ var transforms = {
         transform = data.transform;
 
 
-    var transformTree = Tree(transform);
+    var transformTree = JsonTree(transform);
 
     var ifPropertyNodes = transformTree.findAll(function (n) {
       return n.value().propertyName === '$if';
@@ -123,13 +123,13 @@ var transforms = {
         }
 
         if (objectNodeParent.nodeType() === 'object') {
-          objectNodeParent.setProperty(ifValueNode, propertyName);
+          objectNodeParent.setProperty(propertyName, ifValueNode);
         } else {
           objectNodeParent.insertBefore(ifValueNode, objectNode);
         }
       }
 
-      objectNode.remove();
+      if (objectNode !== objectNode.getRoot()) objectNode.remove();
     });
 
     transform = transformTree.toJson();
