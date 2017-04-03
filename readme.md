@@ -1,15 +1,16 @@
-# mojule-transform
+# transform
 
 Declarative object tranformation
 
 ## Usage
 
-`npm install mojule-transformer`
+`npm install @mojule/transform`
 
 ```javascript
-const transformer = require( 'mojule-transformer' )
+const transform = require( '@mojule/transform' )
+const declaration = require( './path/to/declaration.json' )
 
-const transformed = transformer( model, transform )
+const transformed = transform( model, declaration )
 ```
 
 ## Examples
