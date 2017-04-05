@@ -33,7 +33,7 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "@mojule/json-tree": "^0.3.2",
+    "@mojule/json-tree": "^0.3.3",
     "@mojule/utils": "^0.1.9"
   }
 }
