@@ -1,6 +1,6 @@
 {
   "name": "@mojule/transform",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Declarative object transformation",
   "main": "index.js",
   "scripts": {
