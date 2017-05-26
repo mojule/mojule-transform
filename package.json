@@ -1,6 +1,6 @@
 {
   "name": "@mojule/transform",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Declarative object transformation",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "@mojule/json-tree": "^0.5.5",
-    "@mojule/utils": "^0.1.11"
+    "@mojule/json-tree": "^0.5.6",
+    "@mojule/utils": "^0.1.13"
   }
 }
